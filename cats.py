@@ -59,11 +59,6 @@ def about(topic):
     return select
     # END PROBLEM 2
 
-about_dog = about(['dog', 'hounds', 'bruv'])
-print(about_dog('a paragraph about HOUNDs.'))
-
-
-
 def accuracy(typed, reference):
     """Return the accuracy (percentage of words typed correctly) of TYPED
     when compared to the prefix of REFERENCE that was typed.
@@ -90,7 +85,22 @@ def accuracy(typed, reference):
     typed_words = split(typed)
     reference_words = split(reference)
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if typed_words == [] and reference_words == []:
+        return 100.0
+    elif typed_words == [] or reference_words == []:
+        return 0.0
+    
+    total = 0
+    count = 0
+    correct = 0
+    for i in range(len(typed_words)):
+        if count >= len(reference_words):
+            continue
+        elif typed_words[i] == reference_words[count]:
+            correct += 1
+        count +=1
+    total = correct / (len(typed_words))
+    return total*100.0            
     # END PROBLEM 3
 
 
