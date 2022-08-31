@@ -31,8 +31,15 @@ def choose(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    new_list = [x for x in paragraphs if select(x)]
+    if k >= len(new_list):
+        return ''
+    return new_list[k]
     # END PROBLEM 1
 
+ps = ['hi', 'how are you', 'fine']
+s = lambda p: len(p) <= 4
+print(choose(ps, s, 3))
 
 def about(topic):
     """Return a select function that returns whether
