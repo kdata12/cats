@@ -192,7 +192,16 @@ def feline_flips(start, goal, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    if start == "" or goal == "":
+        return max(len(start), len(goal))
+    if limit == 0:
+        if start == goal:
+            return 0
+        else:
+            return 1
+    return int(start[0]!=goal[0]) + feline_flips(start[1:], goal[1:], limit-int(start[0]!=goal[0]))
+
+
     # END PROBLEM 6
 
 
