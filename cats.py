@@ -165,8 +165,6 @@ def autocorrect(typed_word, valid_words, diff_function, limit):
                 closest_word.append(valid_words[x])
         return closest_word[0]
     # END PROBLEM 5
-ten_diff = lambda w1, w2, limit: 10
-print(autocorrect("hwllo", ["butter", "hello", "potato"], ten_diff, 20))
 
 
 def feline_flips(start, goal, limit):
@@ -222,25 +220,24 @@ def minimum_mewtations(start, goal, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
 
-    if ______________:  # Fill in the condition
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
-
-    elif ___________:  # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
-
+    if start == "" or goal == "":  # Fill in the condition  
+        return max(len(start), len(goal))
+    elif limit == 0:  # Feel free to remove or add additional cases
+        return int(start!=goal)
+    elif start == goal:
+        return 0
+    elif start[0] == goal[0]:
+        return minimum_mewtations(start[1:], goal[1:], limit)
     else:
-        add = ...  # Fill in these lines
-        remove = ...
-        substitute = ...
+        add = 1 + minimum_mewtations(start, goal[1:], limit-1)
+        remove = 1 + minimum_mewtations(start[1:], goal, limit-1)
+        substitute = 1 + minimum_mewtations(start[1:], goal[1:], limit-1)
         # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+        return min(add, min(remove, substitute))
+
+big_limit = 10
+print(minimum_mewtations("cats", "scat", big_limit))
 
 
 def final_diff(start, goal, limit):
