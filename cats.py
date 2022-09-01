@@ -118,9 +118,9 @@ def wpm(typed, elapsed):
     """
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    contain = (len(typed) / 5) / (elapsed / 60)
+    return contain
     # END PROBLEM 4
-
 
 ###########
 # Phase 2 #
@@ -141,12 +141,32 @@ def autocorrect(typed_word, valid_words, diff_function, limit):
     >>> autocorrect("hwllo", ["butter", "hello", "potato"], ten_diff, 20)
     'butter'
     >>> first_diff = lambda w1, w2, limit: (1 if w1[0] != w2[0] else 0) # Checks for matching first char
-    >>> autocorrect("tosting", ["testing", "asking", "fasting"], first_diff, 10)
+    >>> autocorrect(" , ["testing", "asking", "fasting"], first_diff, 10)
     'testing'
     """
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    valid_values = []
+    closest_word = []
+    if typed_word in valid_words:
+        return typed_word
+    else:
+        for i in range(len(valid_words)):
+            new_list = diff_function(typed_word, valid_words[i], limit)
+            valid_values.append(new_list)
+        
+        min_number = min(valid_values)
+        
+        if min_number > limit:
+            return typed_word
+        
+        for x in range(len(valid_words)):
+            if valid_values[x] <= min_number:
+                closest_word.append(valid_words[x])
+        return closest_word[0]
     # END PROBLEM 5
+ten_diff = lambda w1, w2, limit: 10
+print(autocorrect("hwllo", ["butter", "hello", "potato"], ten_diff, 20))
 
 
 def feline_flips(start, goal, limit):
