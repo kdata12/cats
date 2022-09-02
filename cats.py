@@ -236,8 +236,6 @@ def minimum_mewtations(start, goal, limit):
         # BEGIN
         return min(add, min(remove, substitute))
 
-big_limit = 10
-print(minimum_mewtations("cats", "scat", big_limit))
 
 
 def final_diff(start, goal, limit):
@@ -277,9 +275,24 @@ def report_progress(sofar, prompt, user_id, upload):
     ID: 3 Progress: 0.2
     0.2
     """
-    # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 8
+    progress = 0
+    for i in range(len(prompt)):
+        if i == len(sofar):
+            break
+        elif sofar[i] == prompt[i]: 
+            progress += 1
+        else:
+            break
+    
+    progress = progress / len(prompt)
+    data = {'id': user_id, 'progress': progress}
+    upload(data)
+    return progress
+
+print_progress = lambda d: print('ID:', d['id'], 'Progress:', d['progress'])
+sofar = ['how', 'are', 'you']
+prompt = ['how', 'are', 'you', 'doing', 'today']
+report_progress(sofar, prompt, 2, print_progress)
 
 
 def time_per_word(words, times_per_player):
