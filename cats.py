@@ -313,8 +313,23 @@ def time_per_word(words, times_per_player):
     [[6, 3, 6, 2], [10, 6, 1, 2]]
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    def function(func):
+        g = 0
+        for i in times_per_player:
+            for a in range(len(i)):
+                if a == len(i)-1:
+                    del times_per_player[g][-1]
+                    break
+                times_per_player[g][a] = abs(times_per_player[g][a+1] - times_per_player[g][a])
+            g += 1
+        
+        return words, times_per_player
+                
+    return function
     # END PROBLEM 9
+ p = [[75, 81, 84, 90, 92], [19, 29, 35, 36, 38]]
+ match = time_per_word(['collar', 'plush', 'blush', 'repute'], p)
+ get_words (match)
 
 
 def fastest_words(match):
