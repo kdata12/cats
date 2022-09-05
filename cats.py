@@ -289,11 +289,6 @@ def report_progress(sofar, prompt, user_id, upload):
     upload(data)
     return progress
 
-print_progress = lambda d: print('ID:', d['id'], 'Progress:', d['progress'])
-sofar = ['how', 'are', 'you']
-prompt = ['how', 'are', 'you', 'doing', 'today']
-report_progress(sofar, prompt, 2, print_progress)
-
 
 def time_per_word(words, times_per_player):
     """Given timing data, return a match data abstraction, which contains a
@@ -312,25 +307,16 @@ def time_per_word(words, times_per_player):
     >>> get_times(match)
     [[6, 3, 6, 2], [10, 6, 1, 2]]
     """
-    # BEGIN PROBLEM 9
-    def function(func):
-        g = 0
-        for i in times_per_player:
-            for a in range(len(i)):
-                if a == len(i)-1:
-                    del times_per_player[g][-1]
-                    break
-                times_per_player[g][a] = abs(times_per_player[g][a+1] - times_per_player[g][a])
-            g += 1
-        
-        return words, times_per_player
+    g = 0
+    for i in times_per_player:
+        for a in range(len(i)):
+            if a == len(i)-1:
+                del times_per_player[g][-1]
+                break
+            times_per_player[g][a] = abs(times_per_player[g][a+1] - times_per_player[g][a])
+        g += 1        
+    return match(words, times_per_player)    
                 
-    return function
-    # END PROBLEM 9
- p = [[75, 81, 84, 90, 92], [19, 29, 35, 36, 38]]
- match = time_per_word(['collar', 'plush', 'blush', 'repute'], p)
- get_words (match)
-
 
 def fastest_words(match):
     """Return a list of lists of which words each player typed fastest.
@@ -349,11 +335,16 @@ def fastest_words(match):
     """
     player_indices = range(len(get_times(match)))  # contains an *index* for each player
     word_indices = range(len(get_words(match)))    # contains an *index* for each word
-    # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 10
-
-
+    
+    ans_list = [[] for k in player_indices]
+    for i in word_indices:
+        times = [time(match, j, i) for j in player_indices]
+        # print("DEBUG: times:", times)
+        # print("DEBUG: index:",times.index(min(times)))
+        ans_list[times.index(min(times))].append(word_at(match, i))
+        # print("DEBUG: ", ans_list)
+    return ans_list
+    
 def match(words, times):
     """A data abstraction containing all words typed and their times.
 
