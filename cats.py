@@ -145,7 +145,6 @@ def autocorrect(typed_word, valid_words, diff_function, limit):
     'testing'
     """
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
     valid_values = []
     closest_word = []
     if typed_word in valid_words:
